@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Tem que ser único
+  generateName: prefixo de nome a ser usado pelo servidor se um nome não for dado
+  namespace: mecanismo para isolar grupos de nomes.
+  labels: mapa chave e valor usado para categorizar objetos
+spec:
+  replicas: número de pods que se deseja
+  seletor: Seleciona os pods que serão afetados por essas configurações de deployment.
+        Pode ter duas diretivas:
+                matchExpressions: é formado por uma chave, por um operador (NotIn, Exists, DoesNotExist), e values [valor1, valor2]. Values não é
+                                 obrigatório.
+                                obs: values é um array
+                matchLabels: É uma forma mais simples e amplamente utilizada. Considera o par chave e valor. O operador é o In. O value é o que está no valor.
+  template:
+    metadata:
+    spec:
+      containers:
+	- name: nome do container
+	  image: endereço do repositório.
+	  *imagePullPolicy: política de verificação da imagem
+	  	pode ser:
+	  		Always: verifica sempre
+	  		IfNotPresent: Dwonload d aimagem se não está no cache
+	  		Never: Não baixa nenhuma imagem.
+	  *livenessProbe: É um health check do container.
+	  	pode ser entre outros:
+	  		httpGet: Faz um request no pod com port e path específico. É sucesso se a resposta for  200 <= resposta < 400
+	  		 path:
+	  		 port:
+	  		periodSeconds: Intervalo de tempo para realizar novo teste
+	  		initialDelaySeconds: período de espera inicial pra realizar primeiro check.
+	  					
+	  
+	  

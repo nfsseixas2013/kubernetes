@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: Tem que ser único
+  generateName: prefixo de nome a ser usado pelo servidor se um nome não for dado
+  namespace: mecanismo para isolar grupos de nomes.
+  labels: mapa chave e valor usado para categorizar objetos
+spec:
+  selector: Seleciona os pods que serão afetados por essa configuração.
+    app: second-app 
+    # Não precisa ser exatamente igual aos matchLabels do deployment. Basta conter todos os key:values definidos aqui
+  ports:
+  # Lista de portas expostas. Deve conter protocol, port e o targetport
+    - protocol: 'TCP'
+    # pode ser TCP, UDP e SCTP
+      port: 80
+      targetPort: 8080
+    # Porta onde a aplicação escuta.
+
+  type: determina como o serviço é exposto.  Pode ser LoadBalancer, ClusterIP, NodePort e ExternalName. 
+  LoadBalancer - Expõe o serviço externamente usando um balanceador do provedor de nuvem.
+  ClusterIP - O serviço só é alcançado dentro do cluster. É o modo default quando não se explicita o tipo de serviço.
+
+  
